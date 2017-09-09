@@ -12,10 +12,10 @@
 			<h2 class="inner-tittle page">Online Grading System</h2>
 			<div class="login">
 				<h3 class="inner-tittle t-inner">Login</h3>
-				<form>
-					<input type="text" class="text" value="Username" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Username';}" >
-					<input type="password" value="Password" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Password';}">
-					<div class="submit"><input type="submit" onclick="myFunction()" value="Login" ></div>
+				<form action="validate.php" method="post">
+					<input type="text" class="text" name="txtUsername" placeholder="Username" >
+					<input type="password" name="txtPassword"  placeholder="Password">
+					<div class="submit"><input type="submit" name="btnSubmit"  value="Login" ></div>
 					<div class="clearfix"></div>
 
 					<div class="new">

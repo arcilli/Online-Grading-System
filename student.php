@@ -22,25 +22,38 @@
 									<table class="table table-bordered"> 
 										<thead> 
 											<tr>
-												<th>#</th> 
+												<!--<th>#</th>--> 
 												<th>First Name</th> 
-												<th>Last Name</th> 
-												<th>Middle Name</th>
+												<th>Middle Name</th> 
+												<th>Last Name</th>
 												<th>Username</th> 
 												<th>Contact</th> 
 												<th></th>
 											</tr> 
 										</thead>
 										<tbody> 
+										<?php 
+											require "conn.php";
+
+											$query = "SELECT * FROM usertbl WHERE usertype = 'student'";
+											$result = mysqli_query($con, $query);
+
+											while($row = mysqli_fetch_array($result))
+											{
+
+										?>
 											<tr> 
-												<th scope="row">1</th>
-												<td>2016-2017</td> 
-												<td></td> 
-												<td></td> 
-												<td></td> 
-												<td></td>  
-												<td><button style="margin:0px;padding:8px;" class="btn btn-success">Edit</button></td> 
+												<!-- <th scope="row">1</th> -->
+												<td><?php echo $row['fname']; ?></td> 
+												<td><?php echo $row['mname']; ?></td> 
+												<td><?php echo $row['lname']; ?></td> 
+												<td><?php echo $row['username']; ?></td> 
+												<td><?php echo $row['contact']; ?></td>  
+												<td><button style="margin:0px;padding:8px;" userid="<?php echo $row['id']; ?>" firstname="<?php echo $row['fname']; ?>" middlename="<?php echo $row['mname']; ?>" lastname="<?php echo $row['lname']; ?>" username="<?php echo $row['username']; ?>" contact="<?php echo $row['contact']; ?>" class="btn btn-success" onclick="edit(this)"> Edit</button></td> 
 											</tr> 
+
+										<?php } ?>
+
 										</tbody> 
 									</table>
 								</div>
@@ -49,31 +62,32 @@
 
 						<div class="col-sm-5">
 							<div class="graph">
-								<form class="form-horizontal">
+								<form class="form-horizontal"  method="post" name="add_student_form">
 									<div class="form-group">
 										<label>Username</label>
-										<input type="text" class="form-control" name="uname">
+										<input type="text" class="form-control" name="txtUsername" id="txtUsername">
 									</div>
 									<div class="form-group">
 										<label>First Name</label>
-										<input type="text" class="form-control" name="fname">
+										<input type="text" class="form-control" name="txtFirstname" id="txtFirstname">
 									</div>
 									<div class="form-group">
 										<label>Last Name</label>
-										<input type="text" class="form-control" name="lname">
+										<input type="text" class="form-control" name="txtLastname" id="txtLastname">
 									</div>
 									<div class="form-group">
 										<label>Middle Name</label>
-										<input type="text" class="form-control" name="mname">
+										<input type="text" class="form-control" name="txtMiddlename" id="txtMiddlename">
 									</div>
 									<div class="form-group">
 										<label>Contact</label>
-										<input type="text" class="form-control" name="contact">
+										<input type="text" class="form-control" name="txtContact" id="txtContact">
 									</div>
-									<button type="submit" name="add_stud" class="btn btn-primary">Create</button>
-									<button type="reset" id="clear" class="btn btn-info">Clear</button>
+									<input type="hidden" id="id" name="id" value="">
+									<button type="submit" name="btnAddStudent" id="btnAddStudent" onclick="send()" class="btn btn-primary">Add</button>
+									<button type="button" id="clear" class="btn btn-info" onclick="clean()">Clear</button>
 									<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Back</button>
-									<button type="submit" id="btn_edit" style="display:none;" name="edit_yearlevel" class="btn btn-success">Update</button>
+									<button type="button" id="btn_edit" style="display:none;" name="edit_yearlevel" class="btn btn-success">Update</button>
 								</form>
 							</div>
 						</div>
@@ -83,5 +97,54 @@
 			<?php include "inc/sidebar.php"; ?>
 		</div>
 		<?php include "inc/script.php"; ?>
+
+		<script>
+
+			function clean()
+			{
+				$("#txtFirstname").val("");
+				$("#txtMiddlename").val("");
+				$("#txtLastname").val("");
+				$("#txtUsername").val("");
+				$("#txtContact").val("");
+
+				$("#btnAddStudent").html("Add");
+				$("#clear").html("Clear");
+
+			}
+
+			function edit(obj)
+			{
+
+				$("#txtFirstname").val($(obj).attr("firstname"));
+				$("#txtMiddlename").val($(obj).attr("middlename"));
+				$("#txtLastname").val($(obj).attr("lastname"));
+				$("#txtUsername").val($(obj).attr("username"));
+				$("#txtContact").val($(obj).attr("contact"));
+				$("#id").val($(obj).attr("userid"));
+
+				$("#btnAddStudent").html("Save");
+				$("#clear").html("Cancel");
+
+			}
+
+			function send()
+			{
+				var form = document.add_student_form;
+
+				if($("#btnAddStudent").html() === "Add")
+				{
+					form.action = "add_student.php";
+				}
+				else
+				{
+					form.action = "edit_student.php";
+				}
+
+				form.submit();
+			}
+
+		</script>
+
 	</body>
 	</html>

@@ -22,19 +22,31 @@
 									<table class="table table-bordered"> 
 										<thead> 
 											<tr>
-												<th>#</th> 
 												<th>Year Level</th> 
 												<th>Description</th> 
 												<th></th>
 											</tr> 
 										</thead>
 										<tbody> 
+
+										<?php 
+											require "conn.php";
+											$query = "SELECT * FROM tblyearlevel";
+											$result = mysqli_query($con, $query);
+
+											while($row = mysqli_fetch_array($result))
+											{
+
+										?>
 											<tr> 
-												<th scope="row">1</th>
-												<td>1ST Year</td> 
-												<td>First Year</td> 
-												<td><button style="margin:0px;padding:8px;" class="btn btn-success">Edit</button></td> 
+												<td><?php echo $row['yearlevel']; ?></td> 
+												<td><?php echo $row['description']; ?></td> 
+												<td><button style="margin:0px;padding:8px;" yearlevelid="<?php echo $row['id']; ?>" yearlevel="<?php echo $row['yearlevel']; ?>" description="<?php echo $row['description']; ?>" class="btn btn-success" onclick="edit(this)">Edit</button></td> 
 											</tr> 
+
+									  <?php } ?>
+
+
 										</tbody> 
 									</table>
 								</div>
@@ -43,19 +55,20 @@
 
 						<div class="col-sm-5">
 							<div class="graph">
-								<form class="form-horizontal">
+								<form class="form-horizontal" name="add_yearlevel_form" method="post">
 									<div class="form-group">
 										<label>Year Level</label>
-										<input type="text" class="form-control" name="yearlevel">
+										<input type="text" class="form-control" name="yearlevel" id="txtYearLevel">
 									</div>
 									<div class="form-group">
 										<label>Description</label>
-										<input type="text" class="form-control" name="desc">
+										<input type="text" class="form-control" name="yearleveldesc" id="yearleveldesc">
 									</div>
-									<button type="submit" name="add_schoolyear" class="btn btn-primary">Create</button>
-									<button type="reset" id="clear" class="btn btn-info">Clear</button>
+									<input type="hidden" name="year_level_id" id="year_level_id">
+									<button type="submit" name="btnAddYearLevel" id="btnAddYearLevel" onclick="send()" class="btn btn-primary">Add</button>
+									<button type="button" id="clear" onclick="clean()" class="btn btn-info">Clear</button>
 									<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Back</button>
-									<button type="submit" id="btn_edit" style="display:none;" name="edit_yearlevel" class="btn btn-success">Update</button>
+									<button type="button" id="btn_edit" style="display:none;" name="edit_yearlevel" class="btn btn-success">Update</button>
 								</form>
 							</div>
 						</div>
@@ -65,5 +78,42 @@
 			<?php include "inc/sidebar.php"; ?>
 		</div>
 		<?php include "inc/script.php"; ?>
+
+		<script>
+				
+			function send()
+			{
+				var form = document.add_yearlevel_form;
+
+				if($("#btnAddYearLevel").html() === "Add")
+				{
+					form.action = "add_yearlevel.php";
+				}
+				else
+				{
+					form.action = "edit_yearlevel.php";
+				}
+				form.submit();
+			}
+
+			function clean()
+			{
+				$("#txtYearLevel").val("");
+				$("#yearleveldesc").val("");
+				$("#btnAddYearLevel").html("Add");
+				$("#clear").html("Clear");
+			}
+
+			function edit(obj)
+			{
+				$("#txtYearLevel").val($(obj).attr("yearlevel"));
+				$("#yearleveldesc").val($(obj).attr("description"));
+				$("#year_level_id").val($(obj).attr("yearlevelid"));
+				$("#btnAddYearLevel").html("Save");
+				$("#clear").html("Cancel");
+			}
+
+		</script>
+
 	</body>
 	</html>
