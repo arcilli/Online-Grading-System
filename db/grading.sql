@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 08, 2017 at 07:23 AM
+-- Generation Time: Sep 09, 2017 at 06:47 PM
 -- Server version: 5.6.20
 -- PHP Version: 5.5.15
 
@@ -31,14 +31,15 @@ CREATE TABLE IF NOT EXISTS `tblclass` (
   `classname` varchar(20) NOT NULL,
   `schoolyearid` int(11) NOT NULL,
   `yearlevelid` int(11) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
 
 --
 -- Dumping data for table `tblclass`
 --
 
 INSERT INTO `tblclass` (`id`, `classname`, `schoolyearid`, `yearlevelid`) VALUES
-(3, 'class 1', 24, 4);
+(3, 'class 1', 24, 4),
+(5, 'sa', 24, 4);
 
 -- --------------------------------------------------------
 
@@ -49,7 +50,7 @@ INSERT INTO `tblclass` (`id`, `classname`, `schoolyearid`, `yearlevelid`) VALUES
 CREATE TABLE IF NOT EXISTS `tblschoolyear` (
 `id` int(11) NOT NULL,
   `schoolyear` varchar(20) NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=25 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=26 ;
 
 --
 -- Dumping data for table `tblschoolyear`
@@ -57,7 +58,8 @@ CREATE TABLE IF NOT EXISTS `tblschoolyear` (
 
 INSERT INTO `tblschoolyear` (`id`, `schoolyear`) VALUES
 (24, '2016-2017'),
-(4, '2017-2018');
+(4, '2017-2018'),
+(25, '2018-2019');
 
 -- --------------------------------------------------------
 
@@ -178,13 +180,22 @@ INSERT INTO `tblyearlevel` (`id`, `yearlevel`, `description`) VALUES
 CREATE TABLE IF NOT EXISTS `usertbl` (
 `id` int(11) NOT NULL,
   `username` varchar(140) NOT NULL,
-  `password` int(100) NOT NULL,
-  `fname` int(140) NOT NULL,
-  `mname` int(140) NOT NULL,
-  `lname` int(140) NOT NULL,
-  `contact` int(140) NOT NULL,
-  `usertype` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `password` varchar(100) NOT NULL,
+  `fname` varchar(140) NOT NULL,
+  `mname` varchar(140) NOT NULL,
+  `lname` varchar(140) NOT NULL,
+  `contact` varchar(140) NOT NULL,
+  `usertype` varchar(50) NOT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+
+--
+-- Dumping data for table `usertbl`
+--
+
+INSERT INTO `usertbl` (`id`, `username`, `password`, `fname`, `mname`, `lname`, `contact`, `usertype`) VALUES
+(1, 'admin', 'admin', 'admin', 'admin', 'admin', '', 'admin'),
+(3, 'student', 'student123', 'student', 'student', 'student', '00988', 'student'),
+(4, 'teacher', 'teacher123', 'teacher', 'teacher', 'teacher', '2424', 'teacher');
 
 --
 -- Indexes for dumped tables
@@ -246,12 +257,12 @@ ALTER TABLE `usertbl`
 -- AUTO_INCREMENT for table `tblclass`
 --
 ALTER TABLE `tblclass`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `tblschoolyear`
 --
 ALTER TABLE `tblschoolyear`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=25;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=26;
 --
 -- AUTO_INCREMENT for table `tblstudentclass`
 --
@@ -281,7 +292,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=6;
 -- AUTO_INCREMENT for table `usertbl`
 --
 ALTER TABLE `usertbl`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

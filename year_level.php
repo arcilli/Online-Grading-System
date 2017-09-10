@@ -30,7 +30,6 @@
 										<tbody> 
 
 										<?php 
-											require "conn.php";
 											$query = "SELECT * FROM tblyearlevel";
 											$result = mysqli_query($con, $query);
 
@@ -58,11 +57,11 @@
 								<form class="form-horizontal" name="add_yearlevel_form" method="post">
 									<div class="form-group">
 										<label>Year Level</label>
-										<input type="text" class="form-control" name="yearlevel" id="txtYearLevel">
+										<input type="text" class="form-control" name="yearlevel" id="txtYearLevel" required>
 									</div>
 									<div class="form-group">
 										<label>Description</label>
-										<input type="text" class="form-control" name="yearleveldesc" id="yearleveldesc">
+										<input type="text" class="form-control" name="yearleveldesc" id="yearleveldesc" required>
 									</div>
 									<input type="hidden" name="year_level_id" id="year_level_id">
 									<button type="submit" name="btnAddYearLevel" id="btnAddYearLevel" onclick="send()" class="btn btn-primary">Add</button>

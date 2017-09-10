@@ -17,6 +17,11 @@
 				<div class="graph-visual tables-main">
 					<h3 class="inner-tittle two">My Grades </h3>
 					<div class="graph">
+						<?php 
+						$query = "SELECT * FROM tblstudentgrade WHERE studentid = '$sessionid'";
+						$result = mysqli_query($con, $query);
+						if(mysqli_num_rows($result) > 0){
+						?>
 						<div class="tables">
 							<button type="submit" name="add_schoolyear" class="btn btn-primary">Print Grades</button>
 							<table class="table table-bordered"> 
@@ -34,6 +39,7 @@
 									</tr> 
 								</thead>
 								<tbody> 
+									<?php while($row = mysqli_fetch_array($result)){ ?>
 									<tr> 
 										<th scope="row">1</th>
 										<td>IT1 - Fundamentals of Computer</td> 
@@ -45,9 +51,13 @@
 										<td>passed</td> 
 										<td>Annie Lazaro</td> 
 									</tr> 
+									<?php } ?>
 								</tbody> 
 							</table>
 						</div>
+						<?php } else { ?>
+						<div class="alert alert-success">No data found.</div>
+						<?php } ?>
 					</div>
 				</div>
 			</div>

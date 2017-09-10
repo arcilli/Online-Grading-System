@@ -1,40 +1,36 @@
 <?php
+require "conn.php";
+session_start();
+if(isset($_POST['btnSubmit']))
+{
+	$username = validate($_POST['txtUsername']);
+	$password = validate($_POST['txtPassword']);
 
-	require "conn.php";
+	$query = "SELECT * FROM usertbl WHERE username = '$username' AND password = '$password'";
+	$result = mysqli_query($con, $query);
+	$num_rows = mysqli_num_rows($result);
+	$row = mysqli_fetch_array($result);
 
-	if(isset($_POST['btnSubmit']))
+	if($num_rows > 0)
 	{
-		$username = validate($_POST['txtUsername']);
-		$password = validate($_POST['txtPassword']);
-
-		$query = "SELECT * FROM usertbl WHERE username = '$username' AND password = '$password'";
-		$result = mysqli_query($con, $query);
-		$num_rows = mysqli_num_rows($result);
-	
-
-		if($num_rows > 0)
+		$userType = $row["usertype"];
+		if($userType === "admin")
 		{
-				
-			$userType = "";	
-			while($row = mysqli_fetch_array($result))
-			{
-				$userType = $row["usertype"];
-			}
-
-			if($userType === "admin")
-			{
-				header("LOCATION: admin_dashboard.php");
-			}
-			else if($userType === "teacher")
-			{
-				header("LOCATION: teacher_dashboard.php");
-			}
-			else
-			{
-				header("LOCATION: student_dashboard.php");
-			}
+			$_SESSION['username'] = $row['username'];
+			header("LOCATION: admin_dashboard.php");
 		}
+		else if($userType === "teacher")
+		{
+			$_SESSION['username'] = $row['username'];
+			header("LOCATION: teacher_dashboard.php");
+		}
+		else if($userType === "student")
+		{
+			$_SESSION['username'] = $row['username'];
+			header("LOCATION: student_dashboard.php");
+		}
+	}else{
+		?> <script> alert("Invalid password and username."); window.location = "index.php"; </script><?php
 	}
-
-
+}
 ?>

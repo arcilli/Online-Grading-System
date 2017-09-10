@@ -7,6 +7,7 @@
 
 	function validate($data)
 	{
+		$data = addslashes($data);
 		$data = trim($data);
 		$data = htmlspecialchars($data);
 		$data = stripslashes($data);

@@ -33,8 +33,6 @@
 										</thead>
 										<tbody> 
 										<?php 
-											require "conn.php";
-
 											$query = "SELECT * FROM usertbl WHERE usertype = 'student'";
 											$result = mysqli_query($con, $query);
 
@@ -62,26 +60,26 @@
 
 						<div class="col-sm-5">
 							<div class="graph">
-								<form class="form-horizontal"  method="post" name="add_student_form">
+								<form class="form-horizontal" method="post" name="add_student_form">
 									<div class="form-group">
 										<label>Username</label>
-										<input type="text" class="form-control" name="txtUsername" id="txtUsername">
+										<input type="text" class="form-control" name="txtUsername" id="txtUsername" required>
 									</div>
 									<div class="form-group">
 										<label>First Name</label>
-										<input type="text" class="form-control" name="txtFirstname" id="txtFirstname">
+										<input type="text" class="form-control" name="txtFirstname" id="txtFirstname" required>
 									</div>
 									<div class="form-group">
 										<label>Last Name</label>
-										<input type="text" class="form-control" name="txtLastname" id="txtLastname">
+										<input type="text" class="form-control" name="txtLastname" id="txtLastname" required>
 									</div>
 									<div class="form-group">
 										<label>Middle Name</label>
-										<input type="text" class="form-control" name="txtMiddlename" id="txtMiddlename">
+										<input type="text" class="form-control" name="txtMiddlename" id="txtMiddlename" required>
 									</div>
 									<div class="form-group">
 										<label>Contact</label>
-										<input type="text" class="form-control" name="txtContact" id="txtContact">
+										<input type="text" class="form-control" name="txtContact" id="txtContact" required>
 									</div>
 									<input type="hidden" id="id" name="id" value="">
 									<button type="submit" name="btnAddStudent" id="btnAddStudent" onclick="send()" class="btn btn-primary">Add</button>

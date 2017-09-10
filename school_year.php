@@ -28,91 +28,54 @@
 											</tr> 
 										</thead>
 										<tbody> 
-
-										<?php 
-
-											require "conn.php";
-
+											<?php 
 											$query = "SELECT * FROM tblschoolyear";
 											$result = mysqli_query($con, $query);
-
-											while($row = mysqli_fetch_array($result))
-											{
-
-										?>
-
-											<tr> 
-												<td><?php echo $row['schoolyear']; ?></td> 
-												<td><button style="margin:0px;padding:8px;" class="btn btn-success">Active</button></td> 
-												<td><button style="margin:0px;padding:8px;" schoolyearid="<?php echo $row['id']; ?>" schoolyear="<?php echo $row['schoolyear']; ?>" class="btn btn-success" onclick="edit(this)">Edit</button></td> 
-											</tr> 
-
-
-									  <?php } ?>
-
-										</tbody> 
-									</table>
+											while($row = mysqli_fetch_array($result)) {
+												?>
+												<tr> 
+													<td><?php echo $row['schoolyear']; ?></td> 
+													<td><button style="margin:0px;padding:8px;" class="btn btn-success">Active</button></td> 
+													<td><button style="margin:0px;padding:8px;" schoolyearid="<?php echo $row['id']; ?>" schoolyear="<?php echo $row['schoolyear']; ?>" class="btn btn-success" onclick="edit(this)">Edit</button></td> 
+												</tr> 
+												<?php } ?>
+											</tbody> 
+										</table>
+									</div>
 								</div>
 							</div>
-						</div>
 
-						<div class="col-sm-5">
-							<div class="graph">
-								<form class="form-horizontal" method="post" name="add_schoolyear_form" >
-									<div class="form-group">
-										<label>School Year</label>
-										<input type="text" class="form-control" name="txtSchoolYear"  id="txtSchoolYear" placeholder="0000-0000">
-									</div>
-									<input type="hidden" name="school_year_id" id="school_year_id">
-									<button type="submit" name="btnAddSchoolYear" id="btnAddSchoolYear" onclick="send()" class="btn btn-primary">Add</button>
-									<button type="button" onclick="clean()" id="clear" class="btn btn-info">Clear</button>
-									<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Back</button>
-									<button type="button" id="btn_edit" style="display:none;" name="edit_yearlevel" class="btn btn-success">Update</button>
-								</form>
+							<div class="col-sm-5">
+								<div class="graph">
+									<form method="post" name="add_schoolyear_form" action="crud_function.php">
+										<div class="form-group">
+											<label>School Year</label>
+											<input type="text" class="form-control" name="txtSchoolYear"  id="txtSchoolYear" placeholder="0000-0000">
+										</div>
+										<input type="hidden" name="school_year_id" id="school_year_id">
+										<button type="submit" name="btnAddSchoolYear" id="btnAddSchoolYear" onclick="send()" class="btn btn-primary">Add</button>
+										<button type="reset" onclick="clean()" id="clear" class="btn btn-info">Clear</button>
+										<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Back</button>
+										<button type="button" id="btn_edit" style="display:none;" name="btneditSchoolYear" class="btn btn-success">Update</button>
+									</form>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
+				<?php include "inc/sidebar.php"; ?>
 			</div>
-			<?php include "inc/sidebar.php"; ?>
-		</div>
-		<?php include "inc/script.php"; ?>
+			<?php include "inc/script.php"; ?>
 
-		<script>
-			
-			function send()
-			{
-				var form = document.add_schoolyear_form;
-
-				if($("#btnAddSchoolYear").html() === "Add")
+			<script>
+				function edit(obj)
 				{
-					form.action = "add_schoolyear.php";
+					$("#school_year_id").val($(obj).attr("schoolyearid"));
+					$("#txtSchoolYear").val($(obj).attr("schoolyear"));
+					$("#btnAddSchoolYear").html("Save");
+					$("#clear").html("Cancel");
 				}
-				else
-				{
-					form.action = "edit_schoolyear.php";
-				}
+			</script>
 
-				form.submit();
-
-			}
-
-			function edit(obj)
-			{
-				$("#school_year_id").val($(obj).attr("schoolyearid"));
-				$("#txtSchoolYear").val($(obj).attr("schoolyear"));
-				$("#btnAddSchoolYear").html("Save");
-				$("#clear").html("Cancel");
-			}
-
-			function clean()
-			{
-				$("#txtSchoolYear").val("");
-				$("#btnAddSchoolYear").html("Add");
-				$("#clear").html("Clear");
-			}
-
-		</script>
-
-	</body>
-	</html>
+		</body>
+		</html>
