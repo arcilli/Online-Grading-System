@@ -26,19 +26,19 @@
                 <input readonly name="txt_edit_stud" id="txt_edit_stud" class="form-control input-sm" type="text" value="'.$row['sname'].'" />
             </div>
             <div class="form-group">
-                <label>1st Grading: </label>
+                <label>Prelim: </label>
                 <input name="txtprelim" id="txtprelim" class="form-control input-sm" type="number" value="'.$row['prelim'].'" />
             </div>
             <div class="form-group">
-                <label>2nd Grading: </label>
+                <label>Midterm: </label>
                 <input name="txtmidterm" id="txtmidterm" class="form-control input-sm" type="number" value="'.$row['midterm'].'" />
             </div>
             <div class="form-group">
-                <label>3rd Grading: </label>
+                <label>Pre Final: </label>
                 <input name="txtprefi" id="txtprefi" class="form-control input-sm" type="number" value="'.$row['prefi'].'" />
             </div>
             <div class="form-group">
-                <label>4th Grading: </label>
+                <label>Final: </label>
                 <input name="txtfinal" id="txtfinal" class="form-control input-sm" type="number" value="'.$row['final'].'" />
             </div>
         </div>

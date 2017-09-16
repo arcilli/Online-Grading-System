@@ -17,6 +17,11 @@
         throw new Exception("Error Processing Request. Connection to database failed.");
     }
 
+    public function getQuery()
+    {
+      return $this->queryBuilder;
+    }
+
 
     public function getConnection()
     {

@@ -16,6 +16,11 @@
 				</div>
 				<div class="graph-visual tables-main">
 					<div class="row">
+
+
+
+
+					<form name="active_inactive-form" method="post" action="crud_function.php">
 						<div class="col-sm-7">
 							<div class="graph">
 								<div class="tables">
@@ -33,30 +38,46 @@
 											$result = mysqli_query($con, $query);
 											while($row = mysqli_fetch_array($result)) {
 												?>
-												<tr> 
-													<td><?php echo $row['schoolyear']; ?></td> 
-													<td><button style="margin:0px;padding:8px;" class="btn btn-success">Active</button></td> 
-													<td><button style="margin:0px;padding:8px;" schoolyearid="<?php echo $row['id']; ?>" schoolyear="<?php echo $row['schoolyear']; ?>" class="btn btn-success" onclick="edit(this)">Edit</button></td> 
+												<tr>
+													<td><?php echo $row['schoolyear']; ?></td>
+
+													<?php 
+														if($row['status'] == 0)
+														{
+															echo "<td><center><button name='active_schoolyear_btn' onclick='activeInactive(this)' schoolyearid='" . $row['id'] ."' style='margin:0px;' class='btn-success' >Active</button></center></td>";
+														}
+														else
+														{
+															echo "<td><center><button name='active_schoolyear_btn' onclick='activeInactive(this)' schoolyearid='" . $row['id'] ."' style='margin:0px;' class='btn-danger' >Inactive</button></center></td>";
+														}
+													?>
+													
+													<td><center><button style="margin:0px;" schoolyearid="<?php echo $row['id']; ?>" schoolyear="<?php echo $row['schoolyear']; ?>" class="btn-success" onclick="edit(this)">Edit</button></center></td> 
 												</tr> 
 												<?php } ?>
 											</tbody> 
+											<input type="hidden" id="schoolyear_id" name="schoolyear_id">
 										</table>
 									</div>
 								</div>
 							</div>
+							</form>
+
+
+
+
 
 							<div class="col-sm-5">
 								<div class="graph">
 									<form method="post" name="add_schoolyear_form" action="crud_function.php">
 										<div class="form-group">
 											<label>School Year</label>
-											<input type="text" class="form-control" name="txtSchoolYear"  id="txtSchoolYear" placeholder="0000-0000">
+											<input type="text" class="form-control" name="txtSchoolYear" id="txtSchoolYear" placeholder="0000-0000">
 										</div>
 										<input type="hidden" name="school_year_id" id="school_year_id">
-										<button type="submit" name="btnAddSchoolYear" id="btnAddSchoolYear" onclick="send()" class="btn btn-primary">Add</button>
-										<button type="reset" onclick="clean()" id="clear" class="btn btn-info">Clear</button>
-										<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Back</button>
-										<button type="button" id="btn_edit" style="display:none;" name="btneditSchoolYear" class="btn btn-success">Update</button>
+										<button type="submit" name="btnAddSchoolYear" id="btnAddSchoolYear" class="btn btn-primary">Add</button>
+										<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Cancel</button>
+										<button type="submit" id="btn_edit" style="display:none;" name="btneditSchoolYear" class="btn btn-success">Update</button>
 									</form>
 								</div>
 							</div>
@@ -72,8 +93,22 @@
 				{
 					$("#school_year_id").val($(obj).attr("schoolyearid"));
 					$("#txtSchoolYear").val($(obj).attr("schoolyear"));
-					$("#btnAddSchoolYear").html("Save");
-					$("#clear").html("Cancel");
+					$("#btnAddSchoolYear").hide();
+					$("#btn_back").show();
+					$("#btn_edit").show();
+				}
+
+				$("#btn_back").click(function(){
+					$("#btn_back").hide();
+					$("#btn_edit").hide();
+					$("#btnAddSchoolYear").show();
+				})
+
+
+				function activeInactive(obj)
+				{
+					$("#schoolyear_id").val($(obj).attr("schoolyearid"));
+					document.active_inactive-form.submit();
 				}
 			</script>
 

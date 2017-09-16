@@ -18,6 +18,7 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<div class="graph">
+								<form name="activeInactiveTeacher" method="post" action="crud_function.php">
 								<div class="tables">
 									<table class="table table-bordered"> 
 										<thead> 
@@ -27,6 +28,7 @@
 												<th>Middle Name</th>
 												<th>Username</th> 
 												<th>Contact</th> 
+												<th>Status</th>
 												<th></th>
 											</tr> 
 										</thead>
@@ -46,14 +48,31 @@
 												<td><?php echo $row['mname']; ?></td> 
 												<td><?php echo $row['lname']; ?></td> 
 												<td><?php echo $row['username']; ?></td> 
-												<td><?php echo $row['contact']; ?></td>  
-												<td><button style="margin:0px;padding:8px;" userid="<?php echo $row['id']; ?>" firstname="<?php echo $row['fname']; ?>" middlename="<?php echo $row['mname']; ?>" lastname="<?php echo $row['lname']; ?>" username="<?php echo $row['username']; ?>" contact="<?php echo $row['contact']; ?>" class="btn btn-success" onclick="edit(this)"> Edit</button></td> 
-											</tr> 
+												<td><?php echo $row['contact']; ?></td>
 
+												<?php
+
+													if($row['status'] == 0)
+													{
+														echo "<td><center><button  name='activeTeacherBtn' teacherid='" . $row['id'] . "' onclick='activeInactive(this)' class='btn-success btn-sm'>Active</button></center></td>";
+													}	
+													else
+													{
+														echo "<td><center><button name='activeTeacherBtn' teacherid='" . $row['id'] . "' onclick='activeInactive(this)' class='btn-danger btn-sm'>Inactive</button></center></td>";
+													}
+
+												?>
+
+
+												
+												<td><button type="button"  userid="<?php echo $row['id']; ?>" firstname="<?php echo $row['fname']; ?>" middlename="<?php echo $row['mname']; ?>" lastname="<?php echo $row['lname']; ?>" username="<?php echo $row['username']; ?>" contact="<?php echo $row['contact']; ?>" class="btn-success btn-sm" onclick="edit(this)"> Edit</button></td> 
+											</tr> 
 										<?php } ?>
 										</tbody> 
 									</table>
 								</div>
+								<input type="hidden" name="teacherid" id="teacherid">
+								</form>
 							</div>
 						</div>
 
@@ -131,7 +150,7 @@
 
 				if($("#btnAddTeacher").html() === "Add")
 				{
-					form.action = "add_teacher.php";
+					form.action = "crud_function.php";
 				}
 				else
 				{
@@ -139,6 +158,12 @@
 				}
 
 				form.submit();
+			}
+
+			function activeInactive(obj)
+			{
+				$("#teacherid").val($(obj).attr("teacherid"));
+				document.activeInactiveTeacher.submit();
 			}
 
 

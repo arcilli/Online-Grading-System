@@ -18,14 +18,14 @@
 					<div class="row">
 						<div class="col-sm-7">
 							<div class="graph">
-								<form action="crud_function.php" method="post">
+								<form id="submit_subject" action="crud_function.php" method="post">
 									<?php 
 									$query = "SELECT * FROM tblsubjects";
 									$result = mysqli_query($con, $query)or die(mysqli_error($con));
 									if(mysqli_num_rows($result) > 0){
 										?>
 										<button type="button" id="del_subject" class="btn btn-danger">Delete</button>
-										<button type="submit" name="del_subject" id="submit_subject" class="btn btn-danger" style="display:none;">delete</button>
+										<input type="hidden" name="del_subject" value="1">
 										<div class="tables">
 											<table class="table table-bordered"> 
 												<thead> 
@@ -47,7 +47,7 @@
 															<td><?php echo $row['subjectname']; ?></td> 
 															<td><?php echo $row['description']; ?></td> 
 															<td><?php echo $row_ylevel['yearlevel']; ?></td> 
-															<td width="50"><button type="button" style="margin:0px;padding:8px;" id="editsub" data-id="<?php echo $row_ylevel['id']; ?>" class="btn btn-success">Edit</button></td> 
+															<td width="50"><button type="button" style="margin:0px;padding:8px;" id="editsub" data-id="<?php echo $row_ylevel['id']; ?>" class="btn-success">Edit</button></td> 
 														</tr> 
 														<?php } ?>
 													</tbody> 
@@ -87,7 +87,6 @@
 													</select>
 												</div>
 												<button type="submit" name="btnAddSubjects" id="btnAddSubjects" class="btn btn-primary">Create</button>
-												<button type="reset" id="clear" class="btn btn-info">Clear</button>
 												<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Cancel</button>
 												<button type="submit" id="btn_edit" style="display:none;" name="edit_subject" class="btn btn-success">Update</button>
 											</form>
@@ -103,7 +102,7 @@
 						$("#del_subject").click(function(){
 							var conf = confirm("Are you sure you want to delete the selected Subjects?");
 							if(conf == true){
-								$("#submit_subject").click();
+								$("#submit_subject").submit();
 							}
 						})
 						$("#checkall").click(function()
@@ -131,8 +130,11 @@
 						});
 
 						$("#btn_back").click(function(){
-							$("#clear").click();
-							$("#btn_back").hide();
+							$("#subid").val("");
+							$("#desc").val("");
+							$("#subjectname").val("");
+							$("#cboYearLevel").val("");
+							$(this).hide();
 							$("#btn_edit").hide();
 							$("#btnAddSubjects").show();
 						})

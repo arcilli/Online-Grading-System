@@ -23,6 +23,9 @@
 									<h4> Student</h4>
 								</div>
 								<div class="stats-right">
+									<?php 
+									$query = mysqli_query($con,"SELECT * FROM tblyearlevel");
+									?>
 									<label>90</label>
 								</div>
 								<div class="clearfix"> </div>	
@@ -63,40 +66,78 @@
 
 					<h3 class="inner-tittle two">List of administrator </h3>
 					<div class="row">
+					<form action="crud_function.php" method="post" name="frmActiveAdmin">
 						<div class="col-sm-8">
 							<div class="graph">
 								<div class="tables">
 									<table class="table table-bordered"> 
 										<thead> 
-											<tr>
-												<th>#</th> 
+											<tr> 
 												<th>First Name</th> 
 												<th>Last Name</th> 
 												<th>Middle Name</th> 
 												<th>Contact</th>
 												<th>Username</th>
-												<th></th>
+												<th colspan="2"><center>Action</center></th>
 											</tr> 
 										</thead>
 										<tbody> 
+
+										<?php 
+
+											$query = "SELECT * FROM usertbl WHERE usertype = 'admin'";
+											$result = mysqli_query($con, $query);
+
+											while($row = mysqli_fetch_array($result))
+											{
+
+										?>
+
+
 											<tr> 
-												<th scope="row">1</th>
-												<td>Karlo</td> 
-												<td>Bonayon</td> 
-												<td>Juanitas</td> 
-												<td>777748798873</td> 
-												<td>sample</td> 
-												<td><button class="btn btn-success btn-sm">Edit</button></td>
+												<td><?php echo $row['fname']; ?></td> 
+												<td><?php echo $row['lname']; ?></td> 
+												<td><?php echo $row['mname']; ?></td> 
+												<td><?php echo $row['contact']; ?></td> 
+												<td><?php echo $row['username']; ?></td> 
+
+
+												<?php
+
+													if($row['status'] == 0)
+													{
+														echo "<td><button name='btnActiveAdmin' onclick='activeInactiveAdmin(" .  $row['id']  . ")' class='btn-success'>Active</button></td>";
+													}
+													else
+													{
+														echo "<td><button name='btnActiveAdmin' onclick='activeInactiveAdmin(" .  $row['id']  . ")' class='btn-danger'>Inactive</button></td>";
+													}
+												 ?>
+
+
+
+
+
+												<td><button class="btn-success" onclick="editAdmin(<?php echo "'" . $row['id'] . "','" . $row['fname'] . "','" . $row['mname'] . "','" . $row['lname'] . "','" . $row['contact'] . "','" . $row['username'] . "'"; ?>)">Edit</button></td>
 											</tr> 
+
+											<?php
+											}
+
+											?>
+
 										</tbody> 
 									</table>
 								</div>
+								<input type="hidden" name="admin_id" id="admin_id">
 							</div>
+
 						</div>
+						</form>
 
 						<div class="col-sm-4">
 							<div class="graph">
-								<form class="form-horizontal" method="post" name="add_student_form">
+								<form class="form-horizontal" method="post" name="frmAddAdmin" action="crud_function.php">
 									<div class="form-group">
 										<label>Username</label>
 										<input type="text" class="form-control" name="txtUsername" id="txtUsername" required>
@@ -117,11 +158,11 @@
 										<label>Contact</label>
 										<input type="text" class="form-control" name="txtContact" id="txtContact" required>
 									</div>
-									<input type="hidden" id="id" name="id" value="">
-									<button type="submit" name="btnAddStudent" id="btnAddAdmin" onclick="send()" class="btn btn-primary">Add</button>
-									<button type="button" id="clear" class="btn btn-info" onclick="clean()">Clear</button>
+									<input type="hidden" id="adminid" name="adminid" value="">
+									<button type="submit" name="btnAddAdmin" id="btnAddAdmin" class="btn btn-primary">Add</button>
+									<button type="reset" id="clear" class="btn btn-info" onclick="clean()">Clear</button>
 									<button type="button" id="btn_back" style="display:none;" class="btn btn-default">Back</button>
-									<button type="button" id="btn_edit" style="display:none;" name="edit_yearlevel" class="btn btn-success">Update</button>
+									<button type="submit" style="display:none;" name="updateAdmin" id="updateAdmin" class="btn btn-success">Update</button>
 								</form>
 							</div>
 						</div>
@@ -132,6 +173,29 @@
 	</div>
 	<?php include "inc/sidebar.php"; ?>
 </div>
+
+<script type="text/javascript">
+	
+	function editAdmin(id, fname, mname, lname, contact, username)
+	{
+		$("#txtUsername").val(username);
+		$("#txtFirstname").val(fname);
+		$("#txtMiddlename").val(mname);
+		$("#txtLastname").val(lname);
+		$("#txtContact").val(contact);
+		$("#adminid").val(id);
+		$("#btnAddAdmin").hide();
+		$("#updateAdmin").show();
+	}
+
+	function activeInactiveAdmin(id)
+	{
+		$("#admin_id").val(id);
+		document.frmActiveAdmin.submit();
+	}
+
+</script>
+
 <?php include "inc/script.php"; ?>
 </body>
 </html>

@@ -15,36 +15,46 @@
 					</ol>
 				</div>
 				<div class="graph-visual tables-main">
-					<div class="graph">
-						<form class="form-horizontal" method="post" name="add_student_form">
-							<div class="form-group">
-								<label>First Name</label>
-								<input type="text" class="form-control" name="txtFirstname" id="txtFirstname" value="<?php echo $fname; ?>" required>
+					<div class="row">
+						<div class="col-sm-7">
+							<div class="graph">
+								<form method="post" action="crud_function.php">
+									<div class="form-group">
+										<label>First Name</label>
+										<input type="text" class="form-control" name="txtFirstname" id="txtFirstname" value="<?php echo $fname; ?>" required>
+									</div>
+									<div class="form-group">
+										<label>Last Name</label>
+										<input type="text" class="form-control" name="txtLastname" id="txtLastname" value="<?php echo $lname; ?>" required>
+									</div>
+									<div class="form-group">
+										<label>Middle Name</label>
+										<input type="text" class="form-control" name="txtMiddlename" id="txtMiddlename" value="<?php echo $mname; ?>" required>
+									</div>
+									<div class="form-group">
+										<label>Contact</label>
+										<input type="number" class="form-control" name="txtContact" id="txtContact" value="<?php echo $contact; ?>" required>
+									</div>
+									<button type="submit" id="btn_edit" name="edit_userInfo" class="btn btn-success">Update</button>
+								</form>
 							</div>
-							<div class="form-group">
-								<label>Last Name</label>
-								<input type="text" class="form-control" name="txtLastname" id="txtLastname" value="<?php echo $lname; ?>" required>
+						</div>
+
+						<div class="col-sm-5">
+							<div class="graph">
+								<form method="post" action="crud_function.php">
+									<div class="form-group">
+										<label>New Password</label>
+										<input type="password" class="form-control" name="txtnewpass" id="txtnewpass" required>
+									</div>
+									<div class="form-group">
+										<label>Confirm New Password</label>
+										<input type="password" class="form-control" name="txtconpass" id="txtconpass" required>
+									</div>
+									<button type="submit" id="btn_edit" name="edit_password" class="btn btn-success">Update</button>
+								</form>
 							</div>
-							<div class="form-group">
-								<label>Middle Name</label>
-								<input type="text" class="form-control" name="txtMiddlename" id="txtMiddlename" value="<?php echo $mname; ?>" required>
-							</div>
-							<div class="form-group">
-								<label>Contact</label>
-								<input type="text" class="form-control" name="txtContact" id="txtContact" value="<?php echo $contact; ?>" required>
-							</div>
-							<div class="form-group">
-								<label>New Password</label>
-								<input type="password" class="form-control" name="txtContact" id="txtContact" required>
-							</div>
-							<div class="form-group">
-								<label>Confirm New Password</label>
-								<input type="password" class="form-control" name="txtContact" id="txtContact" required>
-							</div>
-							<input type="hidden" id="id" name="id" value="">
-							<button type="button" id="btn_edit" name="edit_yearlevel" class="btn btn-success">Update</button>
-							<button type="button" id="clear" class="btn btn-info" onclick="clean()">Clear</button>
-						</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -60,54 +70,5 @@
 		?>
 	</div>
 	<?php include "inc/script.php"; ?>
-
-	<script>
-
-		function clean()
-		{
-			$("#txtFirstname").val("");
-			$("#txtMiddlename").val("");
-			$("#txtLastname").val("");
-			$("#txtUsername").val("");
-			$("#txtContact").val("");
-
-			$("#btnAddStudent").html("Add");
-			$("#clear").html("Clear");
-
-		}
-
-		function edit(obj)
-		{
-
-			$("#txtFirstname").val($(obj).attr("firstname"));
-			$("#txtMiddlename").val($(obj).attr("middlename"));
-			$("#txtLastname").val($(obj).attr("lastname"));
-			$("#txtUsername").val($(obj).attr("username"));
-			$("#txtContact").val($(obj).attr("contact"));
-			$("#id").val($(obj).attr("userid"));
-
-			$("#btnAddStudent").html("Save");
-			$("#clear").html("Cancel");
-
-		}
-
-		function send()
-		{
-			var form = document.add_student_form;
-
-			if($("#btnAddStudent").html() === "Add")
-			{
-				form.action = "add_student.php";
-			}
-			else
-			{
-				form.action = "edit_student.php";
-			}
-
-			form.submit();
-		}
-
-	</script>
-
 </body>
 </html>
