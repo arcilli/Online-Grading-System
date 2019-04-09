@@ -2,19 +2,8 @@
 <html>
 <head>
 	<title>Online Grading System - Login</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<?php include "inc/navbar.php"; ?>
-	<style type="text/css">
-		h2#page-title{
-			font-size: 2em;
-			font-weight: 400;
-			color: #fff;
-			margin-top: -100px;
-			margin-bottom:60px;
-			text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-		}
-	</style>
 </head> 
 <?php 
 include "conn.php";
@@ -27,6 +16,7 @@ if(!empty($_SESSION['username']))
 	} else {
 		header("Location: index.php");
 	}
+	//TODO: call a method for this
 	$query = "SELECT * FROM usertbl WHERE username = '$username'";
 	$result = mysqli_query($con, $query)or die(mysqli_error($con));
 	$row = mysqli_fetch_array($result);

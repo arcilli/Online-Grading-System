@@ -1,7 +1,7 @@
 <?php
 
 	require "CRUD.php";
-
+    //TODO: need to change this
 	$crud = new CRUD("localhost", "root", "", "grading");
 	$con = $crud->getConnection();
 
