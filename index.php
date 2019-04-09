@@ -74,7 +74,7 @@ if (!empty($_SESSION['username'])) {
                 <input type="text" class="form-control" name="txtUsername" placeholder="Username" required="required">
             </div>
             <div class="form-group">
-                <input type="password" class="form-control" name="txtPassword"placeholder="Password" required="required">
+                <input type="password" class="form-control" name="txtPassword" placeholder="Password" required="required">
             </div>
             <div class="form-group" id="login-button">
                 <button type="submit" class="btn btn-primary btn-block">Log in</button>

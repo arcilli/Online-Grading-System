@@ -1,11 +1,13 @@
 <?php
 require "conn.php";
 session_start();
-if(isset($_POST['btnSubmit']))
+
+if(isset($_POST['txtUsername']) && isset($_POST['txtPassword']))
 {
 	$username = validate($_POST['txtUsername']);
 	$password = validate($_POST['txtPassword']);
 
+	echo $username, $password;
 	$query = "SELECT * FROM usertbl WHERE username = '$username' AND password = '$password'";
 	$result = mysqli_query($con, $query);
 	$num_rows = mysqli_num_rows($result);
